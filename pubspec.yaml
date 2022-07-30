@@ -66,6 +66,14 @@ flutter:
     - assets/btn_wishlist.png
     - assets/icon_star_g.png
     - assets/icon_star.png
+    - assets/icon_card.png
+    - assets/icon_home.png
+    - assets/icon_love.png
+    - assets/icon_mail.png
+    - assets/icon_card_solid.png
+    - assets/icon_home_solid.png
+    - assets/icon_love_solid.png
+    - assets/icon_mail_solid.png
     - assets/detail/cover.png
     - assets/detail/icon_bar.png
     - assets/detail/icon_bed.png
