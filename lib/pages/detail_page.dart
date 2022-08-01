@@ -243,9 +243,14 @@ class Detailpage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(17),
                             ),
                           ),
-                          child: Text(
-                            'Book Now',
-                            style: whiteTextStyle.copyWith(fontSize: 18),
+                          child: InkWell(
+                            onTap: () {
+                              launchUrl('tel://+6281238823123');
+                            },
+                            child: Text(
+                              'Book Now',
+                              style: whiteTextStyle.copyWith(fontSize: 18),
+                            ),
                           ),
                         ),
                       ),
@@ -257,6 +262,7 @@ class Detailpage extends StatelessWidget {
                 ),
               ],
             ),
+            // NOTE : Navigation btn
             Padding(
               padding: EdgeInsets.symmetric(
                 vertical: 30,
