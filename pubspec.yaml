@@ -35,6 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   google_fonts: ^3.0.1
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_test:
@@ -60,37 +61,38 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/404.png
-    - assets/btn_back.png
-    - assets/btn_map.png
-    - assets/btn_wishlist.png
-    - assets/icon_star_g.png
-    - assets/icon_star.png
-    - assets/icon_card.png
-    - assets/icon_home.png
-    - assets/icon_love.png
-    - assets/icon_mail.png
-    - assets/icon_card_solid.png
-    - assets/icon_home_solid.png
-    - assets/icon_love_solid.png
-    - assets/icon_mail_solid.png
-    - assets/detail/cover.png
-    - assets/detail/icon_bar.png
-    - assets/detail/icon_bed.png
-    - assets/detail/icon_cupboard.png
-    - assets/detail/pic1.png
-    - assets/detail/pic2.png
-    - assets/detail/pic3.png
-    - assets/home/city1.png
-    - assets/home/city2.png
-    - assets/home/city3.png
-    - assets/home/space1.png
-    - assets/home/space2.png
-    - assets/home/space3.png
-    - assets/home/tips1.png
-    - assets/home/tips2.png
-    - assets/splash/splash_icon.png
-    - assets/splash/splash_images.png
+  - assets/..
+    # - assets/404.png
+    # - assets/btn_back.png
+    # - assets/btn_map.png
+    # - assets/btn_wishlist.png
+    # - assets/icon_star_solid.png
+    # - assets/icon_star.png
+    # - assets/icon_card.png
+    # - assets/icon_home.png
+    # - assets/icon_love.png
+    # - assets/icon_mail.png
+    # - assets/icon_card_solid.png
+    # - assets/icon_home_solid.png
+    # - assets/icon_love_solid.png
+    # - assets/icon_mail_solid.png
+    # - assets/detail/cover.png
+    # - assets/detail/icon_bar.png
+    # - assets/detail/icon_bed.png
+    # - assets/detail/icon_cupboard.png
+    # - assets/detail/pic1.png
+    # - assets/detail/pic2.png
+    # - assets/detail/pic3.png
+    # - assets/home/city1.png
+    # - assets/home/city2.png
+    # - assets/home/city3.png
+    # - assets/home/space1.png
+    # - assets/home/space2.png
+    # - assets/home/space3.png
+    # - assets/home/tips1.png
+    # - assets/home/tips2.png
+    # - assets/splash/splash_icon.png
+    # - assets/splash/splash_images.png
 
   #   - images/a_dot_ham.jpeg
 

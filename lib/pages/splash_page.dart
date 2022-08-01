@@ -6,6 +6,7 @@ class splash_page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: whiteColor,
       body: Stack(
         children: [
           Align(

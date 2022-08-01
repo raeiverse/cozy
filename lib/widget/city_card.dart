@@ -37,7 +37,7 @@ class cityCard extends StatelessWidget {
                           ),
                           child: Center(
                             child: Image.asset(
-                              'assets/icon_star.png',
+                              'assets/icon_star_solid.png',
                               width: 22,
                               height: 22,
                             ),
