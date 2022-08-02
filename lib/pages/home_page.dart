@@ -1,16 +1,20 @@
 import 'package:cozy/models/city.dart';
 import 'package:cozy/models/space.dart';
 import 'package:cozy/models/tips.dart';
+import 'package:cozy/provider/space_provider.dart';
 import 'package:cozy/widget/bottom_navBar.dart';
 import 'package:cozy/widget/city_card.dart';
 import 'package:cozy/theme.dart';
 import 'package:cozy/widget/space_card.dart';
 import 'package:cozy/widget/tips_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class homePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var spaceProvider = Provider.of<SpaceProvider>(context);
+
     return Scaffold(
       backgroundColor: whiteColor,
       body: SafeArea(
@@ -57,12 +61,18 @@ class homePage extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
+                  SizedBox(
+                    width: 20,
+                  ),
                   cityCard(
                     city(
                       id: 0,
                       name: 'Jakarta',
                       imageUrl: 'assets/home/city1.png',
                     ),
+                  ),
+                  SizedBox(
+                    width: 20,
                   ),
                   cityCard(
                     city(
@@ -72,12 +82,18 @@ class homePage extends StatelessWidget {
                       isPopular: true,
                     ),
                   ),
+                  SizedBox(
+                    width: 20,
+                  ),
                   cityCard(
                     city(
                       id: 2,
                       name: 'Surabaya',
                       imageUrl: 'assets/home/city3.png',
                     ),
+                  ),
+                  SizedBox(
+                    width: 20,
                   ),
                 ],
               ),
@@ -98,51 +114,28 @@ class homePage extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: edge),
-              child: Column(
-                children: [
-                  spaceCard(
-                    space(
-                      id: 0,
-                      name: 'Kuretakeso Hott',
-                      imageUrl: 'assets/home/city1.png',
-                      price: 52,
-                      city: 'Bandung',
-                      country: 'Germany',
-                      rating: 4,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  spaceCard(
-                    space(
-                      id: 1,
-                      name: 'Roemah Nenek',
-                      imageUrl: 'assets/home/city2.png',
-                      price: 11,
-                      city: 'Seattle',
-                      country: 'Bogor',
-                      rating: 5,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  spaceCard(
-                    space(
-                      id: 2,
-                      name: 'Darrling How',
-                      imageUrl: 'assets/home/city3.png',
-                      price: 20,
-                      city: 'Jakarta',
-                      country: 'Indonesia',
-                      rating: 3,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                ],
+              child: FutureBuilder(
+                future: spaceProvider.getRecommendedSpaces(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<space> data = snapshot.data;
+                    int index = 0;
+                    return Column(
+                      children: data.map((item) {
+                        index++;
+                        return Container(
+                          margin: EdgeInsets.only(
+                            top: index == 1 ? 0 : 30,
+                          ),
+                          child: spaceCard(item),
+                        );
+                      }).toList(),
+                    );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
               ),
             ),
             // Note: Tips & Guidances

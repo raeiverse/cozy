@@ -1,16 +1,28 @@
+import 'package:cozy/models/space.dart';
+import 'package:cozy/pages/error_page.dart';
 import 'package:cozy/theme.dart';
 import 'package:cozy/widget/facility_item.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Detailpage extends StatelessWidget {
+  final space Space;
+
+  Detailpage(this.Space);
+
   @override
   Widget build(BuildContext context) {
     launchUrl(String url) async {
       if (await canLaunch(url)) {
         launch(url);
       } else {
-        throw (url);
+        // throw (url);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ErrorPage(),
+          ),
+        );
       }
     }
 
@@ -19,8 +31,8 @@ class Detailpage extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Image.asset(
-              'assets/detail/cover.png',
+            Image.network(
+              Space.image_url,
               width: MediaQuery.of(context).size.width,
               height: 350,
               fit: BoxFit.cover,
@@ -48,12 +60,13 @@ class Detailpage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: edge),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Kuretakeso Hott',
+                                  Space.name,
                                   style: blackTextStyle.copyWith(fontSize: 22),
                                 ),
                                 SizedBox(
@@ -61,7 +74,7 @@ class Detailpage extends StatelessWidget {
                                 ),
                                 Text.rich(
                                   TextSpan(
-                                    text: '\$123',
+                                    text: '\$${Space.price}',
                                     style:
                                         purpleTextStyle.copyWith(fontSize: 16),
                                     children: [
@@ -106,7 +119,6 @@ class Detailpage extends StatelessWidget {
                         height: 30,
                       ),
                       // NOTE: Main Facilities
-
                       Padding(
                         padding: EdgeInsets.only(left: edge),
                         child: Text(
@@ -125,17 +137,17 @@ class Detailpage extends StatelessWidget {
                             facilityItem(
                               name: 'Kitchen',
                               imageUrl: 'assets/detail/icon_bar.png',
-                              total: 2,
+                              total: Space.number_of_kitchens,
                             ),
                             facilityItem(
                               name: 'Bedroom',
                               imageUrl: 'assets/detail/icon_bed.png',
-                              total: 3,
+                              total: Space.number_of_bedrooms,
                             ),
                             facilityItem(
                               name: 'Big Lemari',
                               imageUrl: 'assets/detail/icon_cupboard.png',
-                              total: 3,
+                              total: Space.number_of_cupboards,
                             ),
                           ],
                         ),
@@ -157,40 +169,56 @@ class Detailpage extends StatelessWidget {
                       Container(
                         height: 88,
                         child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            SizedBox(
-                              width: edge,
+                            scrollDirection: Axis.horizontal,
+                            children: Space.photos.map((item) {
+                              return Container(
+                                margin: EdgeInsets.only(
+                                  left: 24,
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(17),
+                                  child: Image.network(
+                                    item,
+                                    width: 110,
+                                    height: 88,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            }).toList()
+                            // [
+                            //   SizedBox(
+                            //     width: edge,
+                            //   ),
+                            //   Image.asset(
+                            //     'assets/detail/pic1.png',
+                            //     width: 110,
+                            //     height: 88,
+                            //     fit: BoxFit.cover,
+                            //   ),
+                            //   SizedBox(
+                            //     width: 18,
+                            //   ),
+                            //   Image.asset(
+                            //     'assets/detail/pic2.png',
+                            //     width: 110,
+                            //     height: 88,
+                            //     fit: BoxFit.cover,
+                            //   ),
+                            //   SizedBox(
+                            //     width: 18,
+                            //   ),
+                            //   Image.asset(
+                            //     'assets/detail/pic3.png',
+                            //     width: 110,
+                            //     height: 88,
+                            //     fit: BoxFit.cover,
+                            //   ),
+                            //   SizedBox(
+                            //     width: edge,
+                            //   ),
+                            // ],
                             ),
-                            Image.asset(
-                              'assets/detail/pic1.png',
-                              width: 110,
-                              height: 88,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(
-                              width: 18,
-                            ),
-                            Image.asset(
-                              'assets/detail/pic2.png',
-                              width: 110,
-                              height: 88,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(
-                              width: 18,
-                            ),
-                            Image.asset(
-                              'assets/detail/pic3.png',
-                              width: 110,
-                              height: 88,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(
-                              width: edge,
-                            ),
-                          ],
-                        ),
                       ),
                       SizedBox(
                         height: 30,
@@ -212,13 +240,12 @@ class Detailpage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Jln. Kappan Sukses No. 20\nPalembang',
+                              '${Space.address}\n${Space.city}',
                               style: greyTextStyle,
                             ),
                             InkWell(
                               onTap: () {
-                                launchUrl(
-                                    'https://g.page/malioboro-jogja?share');
+                                launchUrl(Space.map_url);
                               },
                               child: Image.asset(
                                 'assets/btn_map.png',
@@ -245,7 +272,7 @@ class Detailpage extends StatelessWidget {
                           ),
                           child: InkWell(
                             onTap: () {
-                              launchUrl('tel://+6281238823123');
+                              launchUrl('tel:${Space.phone}');
                             },
                             child: Text(
                               'Book Now',
