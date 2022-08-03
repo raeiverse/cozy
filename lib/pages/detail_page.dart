@@ -2,6 +2,7 @@ import 'package:cozy/models/space.dart';
 import 'package:cozy/pages/error_page.dart';
 import 'package:cozy/theme.dart';
 import 'package:cozy/widget/facility_item.dart';
+import 'package:cozy/widget/rating_item.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -89,29 +90,15 @@ class Detailpage extends StatelessWidget {
                               ],
                             ),
                             Row(
-                              children: [
-                                Image.asset(
-                                  'assets/icon_star_solid.png',
-                                  width: 20,
+                                children: [1, 2, 3, 4, 5].map((index) {
+                              return Container(
+                                margin: EdgeInsets.only(left: 2),
+                                child: RatingItem(
+                                  index,
+                                  Space.rating,
                                 ),
-                                Image.asset(
-                                  'assets/icon_star_solid.png',
-                                  width: 20,
-                                ),
-                                Image.asset(
-                                  'assets/icon_star_solid.png',
-                                  width: 20,
-                                ),
-                                Image.asset(
-                                  'assets/icon_star_solid.png',
-                                  width: 20,
-                                ),
-                                Image.asset(
-                                  'assets/icon_star.png',
-                                  width: 20,
-                                ),
-                              ],
-                            ),
+                              );
+                            }).toList()),
                           ],
                         ),
                       ),
